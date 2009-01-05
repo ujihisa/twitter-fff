@@ -36,4 +36,8 @@ describe Fff, 'when called other methods' do
     @f.followed?('taro').should be_true
     @f.followed?('jiro').should be_false
   end
+
+  it 'should return follow candidates by calling #follow_candidates()' do
+    @f.follow_candidates.sort.should == ['taro', 'jiro', 'saburo'].sort
+  end
 end

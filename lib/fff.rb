@@ -17,4 +17,12 @@ class Fff
   def followed?(s)
     @your_followings.include? s
   end
+
+  # follow_candidates :: [ScreenName]
+  def follow_candidates
+    @your_followings.inject([]) {|memo, s|
+      memo += followings(s)
+      memo.uniq
+    }
+  end
 end
