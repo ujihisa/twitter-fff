@@ -23,6 +23,6 @@ class Fff
     @your_followings.inject([]) {|memo, s|
       memo += followings(s)
       memo.uniq
-    }
+    } - @your_followings
   end
 end
