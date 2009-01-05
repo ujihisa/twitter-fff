@@ -1,0 +1,19 @@
+== twitter-fff -- Follow your followings' followings
+
+You can easily increase followings and cancel it.
+
+== Usage
+
+  # follow
+  ./fff USERNAME PASSWORD
+  # it also generates a log file named followed.yaml.
+
+  # cancel
+  ./fff --cancel followed.yaml USERNAME PASSWORD
+
+== Licence
+MIT
+
+== Author
+Tatsuhiro Ujihisa
+http://ujihisa.nowa.jp
