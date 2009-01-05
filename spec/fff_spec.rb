@@ -20,21 +20,18 @@ describe Fff, 'when called other methods' do
     $people = %w[taro jiro saburo hanako].inject({}) {|memo, name|
       memo.update({name.intern => mock(name, :screen_name => name)})
     }
-    class Twitter::Base
-      def friends
-        [$people[:taro], $people[:jiro]]
-      end
+    twitter = mock('twitter')
+    twitter.stub! :friends => [$people[:taro], $people[:jiro]]
+    twitter.stub!(:friends_for).
+      with('taro').and_return([$people[:hanako], $people[:jiro]])
+    twitter.stub!(:friends_for).
+      with('jiro').and_return([$people[:hanako]])
+    twitter.stub!(:friends_for).
+      with('saburo').and_return([])
+    twitter.stub!(:friends_for).
+      with('hanako').and_return([])
 
-      def friends_for(s)
-        {
-          'taro' => [$people[:hanako], $people[:jiro]],
-          'jiro' => [$people[:hanako]],
-          'saburo' => [],
-          'hanako' => [],
-        }[s]
-      end
-    end
-    #Twitter::Base.should_receive(:new).with(u, p).and_return(twitter)
+    Twitter::Base.should_receive(:new).with(u, p).and_return(twitter)
     @f = Fff.new(u, p)
   end
 
