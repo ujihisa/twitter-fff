@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'cooloptions'
+
+options = CoolOptions.parse!("[options] USERNAME PASSWORD") do |o|
+  o.desc "Follow/Remove your following' followings"
+  o.on "cancel PATH",      "Root of project workspaces.", ''
+
+  o.after do |r|
+    if !r.cancel.empty? && !File.exist?(r.cancel)
+      o.error("Invalid path.")
+    end
+    r.username = ARGV.shift
+    o.error("Your twitter username is required.") unless r.username
+    r.password = ARGV.shift
+    o.error("Your twitter password is required.") unless r.password
+
+    # FIXME: implement here
+    p r
+  end
+end
