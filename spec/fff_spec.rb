@@ -22,14 +22,14 @@ describe Fff, 'when called other methods' do
     }
     twitter = mock('twitter')
     twitter.stub! :friends => [people[:taro], people[:jiro]]
-    twitter.stub!(:friends_for).
-      with('taro').and_return([people[:hanako], people[:jiro]])
-    twitter.stub!(:friends_for).
-      with('jiro').and_return([people[:hanako]])
-    twitter.stub!(:friends_for).
-      with('saburo').and_return([])
-    twitter.stub!(:friends_for).
-      with('hanako').and_return([])
+    {
+      'taro' =>   [people[:hanako], people[:jiro]],
+      'jiro' =>   [people[:hanako]],
+      'saburo' => [],
+      'hanako' => [],
+    }.each do |arg, value|
+      twitter.stub!(:friends_for).with(arg).and_return(value)
+    end
 
     Twitter::Base.should_receive(:new).with(u, p).and_return(twitter)
     @f = Fff.new(u, p)
