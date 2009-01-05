@@ -17,15 +17,15 @@ end
 describe Fff, 'when called other methods' do
   before do
     u, p = ['john', 'password123']
-    $people = %w[taro jiro saburo hanako].inject({}) {|memo, name|
+    people = %w[taro jiro saburo hanako].inject({}) {|memo, name|
       memo.update({name.intern => mock(name, :screen_name => name)})
     }
     twitter = mock('twitter')
-    twitter.stub! :friends => [$people[:taro], $people[:jiro]]
+    twitter.stub! :friends => [people[:taro], people[:jiro]]
     twitter.stub!(:friends_for).
-      with('taro').and_return([$people[:hanako], $people[:jiro]])
+      with('taro').and_return([people[:hanako], people[:jiro]])
     twitter.stub!(:friends_for).
-      with('jiro').and_return([$people[:hanako]])
+      with('jiro').and_return([people[:hanako]])
     twitter.stub!(:friends_for).
       with('saburo').and_return([])
     twitter.stub!(:friends_for).
