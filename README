@@ -11,6 +11,14 @@ You can easily increase followings and cancel it.
   # cancel
   ./fff --cancel followed.yaml USERNAME PASSWORD
 
+== Requirements
+
+* A twitter account of yourself
+* Ruby 1.8.7 or higher
+* Gem packages below:
+  * cooloptions
+  * twitter
+
 == Licence
 MIT
 
