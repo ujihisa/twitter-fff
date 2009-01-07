@@ -10,7 +10,7 @@ class Fff
 
   # followings :: ScreenName -> [ScreenName]
   def followings(s)
-    @t.friends_for(s).map(&:screen_name)
+    @t.all_friends_for(s).map(&:screen_name)
   end
 
   # followed? :: ScreenName -> Boolean
@@ -22,15 +22,18 @@ class Fff
   def write_candidates(filename)
     File.open(filename, 'w') do |io|
       @your_followings.each do |s|
-        begin
-          ff = followings(s) - @your_followings
-          io.puts "#{s}: #{ff.inspect}"
-          sleep 1
-        rescue Twitter::CantConnect => e
-          p e
-          io.puts "# #{s}: skipped."
-          sleep 60
+        ff = nil
+        loop do
+          begin
+            ff = followings(s) - @your_followings
+            break
+          rescue Twitter::CantConnect => e
+            p e
+            sleep 3600
+          end
         end
+        io.puts "#{s}: #{ff.inspect}"
+        sleep 1
       end
     end
   end
