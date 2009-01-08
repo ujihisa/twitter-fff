@@ -27,9 +27,9 @@ class Fff
           begin
             ff = followings(s) - @your_followings
             break
-          rescue Twitter::CantConnect => e
-            p e
-            sleep 3600
+          rescue
+            puts 'hmm...'
+            sleep 1000#3600
           end
         end
         io.puts "#{s}: #{ff.inspect}"
