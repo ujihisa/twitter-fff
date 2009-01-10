@@ -18,6 +18,19 @@ class Fff
     @your_followings.include? s
   end
 
+  # follow :: ScreenName -> IO ()
+  def follow(s)
+    loop do
+      begin
+        @t.create_friendship(s)
+        break
+      rescue
+        puts 'hmm...'
+        sleep 1000#3600
+      end
+    end
+  end
+
   # follow_candidates :: String -> IO ()
   def write_candidates(filename)
     File.open(filename, 'w') do |io|
