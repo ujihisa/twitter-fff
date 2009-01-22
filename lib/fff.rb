@@ -24,7 +24,14 @@ class Fff
       begin
         @t.create_friendship(s)
         break
-      rescue
+      rescue Twitter::AlreadyFollowing => e
+        p e
+        break
+      rescue Twitter::CantFollowUser => e
+        p e
+        break
+      rescue => e
+        p e
         puts 'hmm...'
         sleep 1000#3600
       end
